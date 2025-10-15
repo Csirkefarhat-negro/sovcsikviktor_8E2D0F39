@@ -1,2 +1,0 @@
-# Milyen weboldal?
-nigger
