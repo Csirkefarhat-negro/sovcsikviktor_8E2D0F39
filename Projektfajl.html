@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Shop - Product Catalog</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">ModernShop</div>
+            <nav class="nav">
+                <a href="#" class="nav-link">Home</a>
+                <a href="#" class="nav-link active">Products</a>
+                <a href="#" class="nav-link">About Us</a>
+                <a href="#" class="nav-link">Contact</a>
+            </nav>
+            <button class="cart-toggle" id="cartToggle">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Filters Section -->
+            <aside class="filters">
+                <h3>Filters</h3>
+                
+                <div class="filter-group">
+                    <h4>Category</h4>
+                    <label class="filter-option">
+                        <input type="checkbox" value="basic" class="category-filter">
+                        <span>Basic Pieces</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="limited" class="category-filter">
+                        <span>Limited Edition</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="gifts" class="category-filter">
+                        <span>Gifts</span>
+                    </label>
+                </div>
+
+                <div class="filter-group">
+                    <h4>Price Range</h4>
+                    <input type="range" id="priceRange" min="0" max="200" value="200" class="price-slider">
+                    <div class="price-display">Up to $<span id="priceValue">200</span></div>
+                </div>
+
+                <div class="filter-group">
+                    <h4>Tags</h4>
+                    <label class="filter-option">
+                        <input type="checkbox" value="new" class="tag-filter">
+                        <span>New</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="sale" class="tag-filter">
+                        <span>Sale</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="popular" class="tag-filter">
+                        <span>Popular</span>
+                    </label>
+                </div>
+
+                <button class="btn-secondary" id="clearFilters">Clear Filters</button>
+            </aside>
+
+            <!-- Products Section -->
+            <section class="products-section">
+                <div class="products-header">
+                    <h2>Our Products <span class="result-count" id="resultCount">(9 items)</span></h2>
+                    <select id="sortSelect" class="sort-select">
+                        <option value="popularity">Sort by Popularity</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="newest">Newest First</option>
+                    </select>
+                </div>
+
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products will be inserted here by JavaScript -->
+                </div>
+
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <h3>No products found</h3>
+                    <p>Try adjusting your filters or browse our recommended products</p>
+                    <button class="btn-primary" id="clearFiltersEmpty">Clear All Filters</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About ModernShop</h4>
+                    <p>Your destination for quality products with fast shipping and excellent customer service.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: hello@modernshop.com</p>
+                    <p>Phone: (555) 123-4567</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <input type="email" placeholder="Your email" class="newsletter-input">
+                    <button class="btn-primary">Subscribe</button>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ModernShop. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Terms & Conditions</a>
+                    <a href="#">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Panel -->
+    <div class="cart-panel" id="cartPanel">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="cart-close" id="cartClose">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="cart-empty">Your cart is empty</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Subtotal:</span>
+                <span class="total-amount" id="totalAmount">$0.00</span>
+            </div>
+            <button class="btn-primary btn-block" id="checkoutBtn" disabled>Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div class="modal" id="quickViewModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div class="modal-body" id="modalBody">
+                <!-- Product details will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Simulation Page -->
+    <div class="checkout-page" id="checkoutPage" style="display: none;">
+        <div class="container">
+            <button class="btn-secondary" id="backToShop">&larr; Back to Shop</button>
+            <h2>Checkout Simulation</h2>
+            <div class="checkout-grid">
+                <div class="checkout-form">
+                    <h3>Shipping Information</h3>
+                    <input type="text" placeholder="Full Name" class="form-input">
+                    <input type="email" placeholder="Email Address" class="form-input">
+                    <input type="text" placeholder="Shipping Address" class="form-input">
+                    <select class="form-input">
+                        <option>Standard Shipping (5-7 days)</option>
+                        <option>Express Shipping (2-3 days)</option>
+                        <option>Next Day Delivery</option>
+                    </select>
+                </div>
+                <div class="order-summary">
+                    <h3>Order Summary</h3>
+                    <div id="checkoutItems"></div>
+                    <div class="summary-line">
+                        <span>Subtotal:</span>
+                        <span id="checkoutSubtotal">$0.00</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Shipping:</span>
+                        <span>$10.00</span>
+                    </div>
+                    <div class="summary-line total">
+                        <span>Total:</span>
+                        <span id="checkoutTotal">$0.00</span>
+                    </div>
+                    <button class="btn-primary btn-block" id="submitOrder">Submit Simulated Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thank You Page -->
+    <div class="thank-you-page" id="thankYouPage" style="display: none;">
+        <div class="container">
+            <div class="thank-you-content">
+                <div class="success-icon">✓</div>
+                <h2>Order Submitted Successfully!</h2>
+                <p>This is a simulated order. No actual payment was processed.</p>
+                <p>Order Number: <strong>#SIM-<span id="orderNumber"></span></strong></p>
+                <button class="btn-primary" id="returnToShop">Return to Shop</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
